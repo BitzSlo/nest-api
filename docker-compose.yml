@@ -1,0 +1,27 @@
+version: '3.4'
+services:
+  postgres:
+    container_name: 'api-postgres'
+    image: postgres:9
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: db
+    volumes:
+      - 'dbdata:/var/lib/postgresql/data'
+  pgadmin:
+    container_name: 'api-pg-admin'
+    image: fenglc/pgadmin4
+    links:
+      - postgres:postgres
+    ports:
+      - 5050:5050
+    environment:
+      DEFAULT_USER: pgadmin
+      DEFAULT_PASSWORD: pgadmin
+
+volumes:
+  dbdata:
+    name: apiData
